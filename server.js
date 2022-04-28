@@ -3,10 +3,17 @@ const mongoose = require('mongoose')
 const ShortUrl = require('./models/ShortUrl')
 require('dotenv').config()
 const app = express()
-
-mongoose.connect(process.env.MONGO_URI), {
-    useNewUrlParser: true, useUnifiedTopology: true
+if(process.env.ENV=="dev"){
+    mongoose.connect(process.env.MONGO_DEV_URI), {
+        useNewUrlParser: true, useUnifiedTopology: true
+    }
 }
+else{
+    mongoose.connect(process.env.MONGO_PROD_URI), {
+        useNewUrlParser: true, useUnifiedTopology: true
+    }
+}
+
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
 app.use( express.static( "public" ) );
