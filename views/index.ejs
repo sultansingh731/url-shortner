@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+      integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+      crossorigin="anonymous"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <center>
+        <img src="banner.png" alt="banner" height="220" />
+      </center>
+      <form action="/shortUrls" method="POST" class="my-4 form-inline">
+        <label for="fullUrl" class="sr-only">url</label>
+        <input 
+          required
+          type="url"
+          placeholder="URL"
+          name="fullUrl"
+          id="fullUrl"
+          class="form-control mr-2 col mr-2"
+        />
+        <button  class="btn btn-success" type="submit">short it !!</button>
+      </form>
+      <table class="table table-striped table-responsive">
+        <thead>
+          <th width="12%" >Full Url</th>
+          <th width="12%" >Short Url</th>
+          <th width="12%" >Clicks</th>
+        </thead>
+        <tbody>
+          <% shortUrls.forEach(shortUrl => { %>
+          <tr>
+            <td><a href="<%= shortUrl.full %> "><%= shortUrl.full %></a></td>
+            <td><a href="<%= shortUrl.short %>"><%= shortUrl.short %></a></td>
+            <td><%= shortUrl.clicks %></td>
+          </tr>
+
+          <% }) %>
+        </tbody>
+      </table>
+      <br/>
+
+  <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+          <div class="col-md-4 d-flex align-items-center">
+            <a href="/" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1">
+              <svg class="bi" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+            </a>
+            <span class="text-muted">© 2022 Url Shortner by <a href="https://github.com/sultansingh731">@sultansingh731</a></span>
+          </div>
+          <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<li class="ms-3"><a class="text-muted" href="https://twitter.com/sultansingh731"><img height="32" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAADz0lEQVRoge2XTWgdVRiGn+/MpGnv3LRoqC4UhCz8I8RFRClSXdgqWkuV4CRpi1gqglZTuhFXkiDdCVIKBfEHo1Bzr0JRtGAqWhTBQhsaFX9ADbZisbXaJnPb5t6Z+VyotU0yc89MYlGYZzcz73fO+84ZzjcHCgoKCgoK/sfIJZ2tOnmdq+ZxYLXCNUCowvdG9b3QNbvo8Y7NLFm0O+iqry9/njRk0wDOSO2e6JvS+wxKnNv4oBr3hmBIkacBN8FKgLIt6vNe4u0Tbc65xXch8gSxfBn1eU/mC1A9Xna09JPAcNhb3prXvzMy9QIij1rKDwFdQAtwLJKoE3/Zb0likzqxercDyxQGnJHaLqrqWLv+e4xqsD6DeYBu/jR/0gj30lB13wjuTBKnBlCJO85fiD7maG0P1dOXW1tRFWJ91lr/DyHI/ljZ4bjud8bheJIwNQA66/laR51xtxqstnHRUjlzMyIdzZWzcEF7gFsQ2VT3y18kCVMDCGZijttXqzLqVKb28Nbk9Wn1Mdpp53dOfhXiVZHvvZMmSg0QLT6zHySY+6nc70TmK6cSvOtUamvZq60zFSralsXxDAbC3qWfNhMlbGl/sW75lFSCVxQGEhQCrAFd40zVJqnU9in6mREdC018VCJJ3D2aojptI2veyF5Tz22tjSlcm9tMDkS5O+wrjzbTpW+jI8EGZ1GtR2LpUxhfOHvNMYZZXXkuUj8hFW0XZEcsisDZhbFmhdbPeT/YCNNXQOTjCy6XzMtSBgS+5iGp2WhTAzT88mGEAwtjyx5FP7HVpjcywCBbgMa8HGXGpO79FymbCRq+dwjVDVy6ECcjKX1gK24aACDqa3vTqNyGcDC/LztEeRFf6rZ6qwAAsXAVyCDKq4BVk8nB2VBlZ5aC9E58MatQ3fJvnuEEdtLv/ZylxnoFIomHgF8yu7LnSNiY3p61yDoAftsJE5t1wO9ZJ7EgFuERNrZPZi20DwA0+ksHIie6Ffgw60RpqMhQ6Jf35anN/UW3VGvdkXKfiK5ESTzyWTAc+d4mRDRPcaYVuJDGg6UxgaMo3XnHAIYj8TbnNQ95VmCvtjpBrV9hmyhdOedVRZ6J/dL2+ZiHlAAtI8FNGHFVY0+FK1SlQ+AOYCUwn5PWhKCbw962j+YxxnkS+0CjtfGjW295SpGtKKUF2P5PK/JcPF163vZP04bmvnYHVxqHjcDDApkP6QrjqL4ct4av88Blp/KYTCPbi61O3ehgVhDrCgydxLockXZgKXAKZRLDBKrfouZgZMwo/pIjC226oKCgoKCg4L/CH/2pQ2x506tNAAAAAElFTkSuQmCC"/></li>
+                &nbsp;&nbsp;&nbsp;&nbsp;<li class="ms-3"><a class="text-muted" href="https://github.com/sultansingh731"><img height="32" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAABmJLR0QA/wD/AP+gvaeTAAAEc0lEQVR4nO2a22sXRxTHPz9NaQLxEi+oKHiBJDaojcZ7IxRBqqX2qfjWglJFK7QIoj6JoCje4vWhvnmB/g9i29TW1qR9SEUQikWrFWy9hdCYJpr482H2J5ufO7NnZnY3ivuBAz/Ys/M9Z3Z+OzNnFnJycnJy3lwKGenMBN4H3gXqgGlADVAdXO8GHgG3gD+AK8APwe/XlkagBbgDFB3tb+AwquNeCwrAauAy7knr7BfgI7IbtdYsBH4j+cTLrR2Yn1FOIqqAE8AA6SdfsgHgGFCZQX5G6lEvrKwSL7cOoDb1LDUsAh7EBJiFPQKaU871JVYBPZ6BJ2mPgZWpZhxiMWreHuqky62HDEZCPdA5xIma7CGW74ThFr5VwHlgqsGnFTgH9AFTgAqbYAz0At8B3wBPgRmGGJuBM0B/QtovOEn8E1gb8p8A7AT+Fdyns3+ALcCoULufCO47mmDegFrkSOb5uoh7a4CzgnvL7TQwOqK9WsG9/cA8SWKSZWUB+BXZ6ms00KW59iXQALSh1g73UFMYwFhgPGrNvxi4BhzXtFMTus9EG7AU1SFerEb+1JL6z5uosIhnVRKCNhubMUkIxjDKIp6ffcUaLcSKqH1/2kyzjGmOqbFhMWKfWQbXaOnvgm4K1PGp6WJcB6yxECqifwEmSenJSrHJYRD12A21/a5CDhy2jM1px7jRQuAW8LZrNg5UArct4tuga8j0F7Cpw+1BLX+zohfYa+HvVFP8Hlnv9gIjXAQ8qQ60JTFe0DViGgHThYG0Av8JfZOkG7go9NXOHKYOGCls/KrQLw2k2tpcTB1QbbgW5q7QLw2k2tq/qKkDpPX3V7ZOH0Ibo6kDeoSNT7CLJVEmCf0e6y6YOqBT2PhQHlI0Cf2kuQxCOg0+Re3ns2ZcoC2J8VtdI6YR8KcwkApgq9A3SbYhrz9cdxFYj3yp+T8wy0XEkTnIF0FFYJ2LyCwLgdJ+YLJjQjZMQR2b28T2jqvYDUuhO6iaXlo0AX9ZxnTTR/CYpVgRtSlqIdny2BjgCPDEIZ4jPsJzHQRL1gV8jRoRcYWXKIYBS4BTQVuucRhLYhLaIhrtRJW5T6I2QnFBPAQ+t9DcENzjmnTJLjllXMbHEQ0/A/ahnlId8S+lduwKJlVEd7ytfeiUcRmFIIEogV2Bz1zUfz/K5xluxdJG1AmPa/KXHTS1LCD6aKwPmBj4fKEJpNVD97ymzTjrR75MFqObEbaHfHajnnj4+g4Pzc0azThr8dDUUgn8HiF2lcHbzQXAgSCITfjtEz6I0IuzDlIs0NYS/V2QzRvehvkRWia7TwYfTTWj1v5h4U4SmG8jaEKefA/qNDgTVqCKDOEAuoCvGPwxw1v4DUdpB3QDyz10nFiGGnJRM8NN1MFFH35vY0kH3APe89DwYgbxH0qm2QEdyMv3qVGJOqvTfUKTRgcMAAfJ9jgulnnAT6TfAe2ku+X2ooBaf18i+Q74kYQ+ecmK2ai/RoNHGw3AIbItt6WCaz0gJycnJycnRZ4DV1/ELExY0fYAAAAASUVORK5CYII="/></a></li>
+                &nbsp;&nbsp;&nbsp;&nbsp; <li class="ms-3"><a class="text-muted" href="https://linkedin.com/in/sultansingh731"><img height="32" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABmJLR0QA/wD/AP+gvaeTAAACjklEQVRoge2ZT2gTQRTGv9m0pu0mEAu2ikuJDQqCNNbWniJ6qViwFg+i0osXvTeCDfSmElIPAQ8eRK8FsQiilXqzgvWgLbbpQRFUrD0YW0ItCSbY3edFlCQ7SSd1divM7/bmvZ39vn37Z3YXUCgUCjdh1Qo8idQAiIaIoRuA7oAmAMgR2GsNlDRj4ceVCisa0EbnEiA2/G+1CRO3YuERXpJrwJNIDRDooRxNYjCN+s0rByfschp3K6IhaYoEsSwW5eW4BoihS44ccRjQzcvxOwD4JGipFT8vUcmALfuavZgaDGEtegDPB0PYu927OWmbRNjAnT4DRwwder2GiKHjdp8hQ9eGETbQ2dpYFHeVxE4jbOBN+kdRPFsSO42wgYuTS3ixlEPup4WpxSwuTX6RoWvD1Ilu8D5TwNGxDzK01IRwB7Yawh0whzvKxjyjqar53f56XO7Zgd6gD+0BLwqmhYXlPO6/XcXd+QwKJolKAVCDgVoItzTg6dl2tDT93V1DnQcRQ0fE0HGhoxn945/wNbcuPLcjp9D46WCR+FIOtTZi7FRb9bW9DY4YCAW2Va051ubDiRB3xcDFEQMWATdnVtB77yPOP1rEs89Z27pz+wPCcztyDVydTuPadPpP/ODdd0ycCeL4nuIj3rOrSXhuRzpwa3alKDaJEH/5raxupy5+PKUbIACZvFk2vrCcLxvzez3C80s3wLuzrBbKTW3Zu5BMlAG3UQbcRhlwm//eAPfZoSXma3vDkIQVC9tqrdQB+yWjK7A1Xob/bRRsRo4YcQjE1cI1oIGScuSIo8HiauEa+P1nJC5FkRB03Yx1PuFlq/9iujF30rJYlAGH4dwX6ywBrzRYyUriFQqFwn1+AXvFo7bcPPZdAAAAAElFTkSuQmCC"/></a></li>
+          </ul>
+        </footer>
+      </div>
+    </div>
+  </body>
+</html>
