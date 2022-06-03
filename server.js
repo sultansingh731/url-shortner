@@ -3,25 +3,18 @@ const mongoose = require('mongoose')
 const ShortUrl = require('./models/ShortUrl')
 require('dotenv').config()
 const app = express()
-if(process.env.ENV=="dev"){
-    mongoose.connect(process.env.MONGO_DEV_URI), {
-        useNewUrlParser: true, useUnifiedTopology: true
-    }
-}
-else{
-    mongoose.connect(process.env.MONGO_PROD_URI), {
-        useNewUrlParser: true, useUnifiedTopology: true
-    }
-}
+
+mongoose.connect(process.env.MONGO_URI);
+
 
 app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
-app.use( express.static( "public" ) );
+app.use(express.static("public"));
 
 app.listen(process.env.PORT || 5000)
 app.get('/', async (req, res) => {
     const shortUrls = await ShortUrl.find({})
-    res.render('index',{shortUrls: shortUrls})
+    res.render('index', { shortUrls: shortUrls })
 
 })
 
@@ -39,10 +32,10 @@ app.get('/:shortUrl', async (req, res) => {
         shortUrl.clicks++
         console.log(shortUrl);
         shortUrl.save();
-        res.redirect(shortUrl.full)   
+        res.redirect(shortUrl.full)
     } catch (error) {
         console.log(error);
-      res.status(404).send("something went wrong")  
+        res.status(404).send("something went wrong")
     }
-   
+
 })
