@@ -39,4 +39,3 @@ app.get('/:shortUrl', async (req, res) => {
     }
 
 })
-module.exports = app;
