@@ -11,7 +11,7 @@ app.set('view engine', 'ejs')
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static("public"));
 
-app.listen(process.env.PORT || 3000)
+app.listen(process.env.PORT || 5000)
 app.get('/', async (req, res) => {
     const shortUrls = await ShortUrl.find({})
     res.render('index', { shortUrls: shortUrls })
@@ -39,3 +39,4 @@ app.get('/:shortUrl', async (req, res) => {
     }
 
 })
+module.exports = app;
